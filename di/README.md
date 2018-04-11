@@ -7,10 +7,8 @@ Property
 Setter method
 ```
 **Note**
-
-Classes in which these annotations are used should be Component/Service/Controller
-
-Beans for which these annotations are used should also be Component/Service/Controller
+* Classes in which these annotations are used should be Component/Service/Controller
+* Beans for which these annotations are used should also be Component/Service/Controller
 
 ### Using Autowired
 Define autowiring for Constructor, property and setter method

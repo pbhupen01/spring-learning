@@ -5,4 +5,5 @@
 
 [DI](https://github.com/pbhupen01/spring-learning/blob/master/di/README.md)
 
+[Spring Configuration](https://github.com/pbhupen01/spring-learning/blob/master/springconfig/README.md)
 
