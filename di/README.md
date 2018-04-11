@@ -1,13 +1,18 @@
 
-#### Dependency Injection
+# Dependency Injection
 ```
 There are three ways of dependency injection:
 Constructor
 Property
 Setter method
 ```
+**Note**
 
-#### Using Autowired
+Classes in which these annotations are used should be Component/Service/Controller
+
+Beans for which these annotations are used should also be Component/Service/Controller
+
+### Using Autowired
 Define autowiring for Constructor, property and setter method
 Autowired annotation also accepts a field named "required".
 If it is set to true then Spring throws error if Autowired bean is set
@@ -49,11 +54,11 @@ public void setSampleService(SampleService setterSampleServiceImpl)
 }
 ```
 
-#### Using Inject
+### Using Inject
 Inject is java annotation which is same as Autowired annotation.
 Only difference is that it doesn't contain required field.
 
-#### Using Primary Bean
+### Using Primary Bean
 If there are more than one qualifying bean in spring context we can specify one bean as primary bean.
 
 ```

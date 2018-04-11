@@ -1,5 +1,5 @@
 
-#### Example
+# Example
 ```
 House
 Person
@@ -11,7 +11,7 @@ Person is dependent class
 Builder is dependent class
 ```
 
-#### Many to Many
+### Many to Many
 1. Define fields in tables to specify mapping.
    - Define persons field in House.
    - Define houses field in Person.
@@ -46,7 +46,7 @@ className_fieldName
    persons
    ```
    
-#### One to One
+### One to One
 1. Adding One to one relationship. Add dependent class in the main class with @OneToOne annotation. A new column with dependent class id is created in main class table.
    ```
    Add in House class
