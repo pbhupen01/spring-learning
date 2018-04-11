@@ -23,14 +23,18 @@ Simply using Autowired for contructor, property and setter method will inject be
 ```
 If there are multiple implementation then provide Qualifier("beanName") in Constructor, property, and setter method will inject bean at run time.
 
-You can also define qualifier for implementation class and use that defined name to inject bean at run time.
-
 @Autowired
 @Qualifier("setterSampleServiceImpl")
 public void setSampleService(SampleService sampleService)
 {
    this.sampleService = sampleService;
 }
+
+You can also define qualifier for implementation class and use that defined name to inject bean at run time.
+
+@Qualifier("constructorImpl")
+public class ConstructorSampleServiceImpl implements SampleService
+
 ```
 
 ##### Multiple implementation with bean name
@@ -46,7 +50,7 @@ public void setSampleService(SampleService setterSampleServiceImpl)
 ```
 
 #### Using Inject
-Inject is java annotation which is same as Annotation.
+Inject is java annotation which is same as Autowired annotation.
 Only difference is that it doesn't contain required field.
 
 #### Using Primary Bean
