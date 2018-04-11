@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Spring Framework Guru</title>
+</head>
+<body>
+<h1>House List</h1>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Type</th>
+        <th>Address</th>
+        <th>Builder</th>
+    </tr>
+    <tr th:each="house : ${houses}">
+        <td th:text="${house.id}">123</td>
+        <td th:text="${house.type}">Spring in Action</td>
+        <td th:text="${house.address}">Spring in Action</td>
+        <td th:text="${house.builder.name}">Wrox</td>
+    </tr>
+</table>
+
+</body>
+</html>
