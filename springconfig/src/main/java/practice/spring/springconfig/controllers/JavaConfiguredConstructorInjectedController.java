@@ -10,7 +10,6 @@ public class JavaConfiguredConstructorInjectedController {
 
     SampleService sampleService;
 
-    @Autowired
     public JavaConfiguredConstructorInjectedController(@Qualifier("javaConfiguredSampleService") SampleService sampleService)
     {
         this.sampleService = sampleService;

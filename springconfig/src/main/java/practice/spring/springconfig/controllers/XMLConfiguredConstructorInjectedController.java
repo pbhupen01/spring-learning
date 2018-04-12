@@ -10,7 +10,6 @@ public class XMLConfiguredConstructorInjectedController {
 
     SampleService sampleService;
 
-    @Autowired
     public XMLConfiguredConstructorInjectedController(@Qualifier("XMLConfiguredSampleService") SampleService sampleService)
     {
         this.sampleService = sampleService;

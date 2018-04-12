@@ -9,7 +9,6 @@ public class PrimaryConfiguredConstructorInjectedController {
 
     SampleService sampleService;
 
-    @Autowired
     public PrimaryConfiguredConstructorInjectedController(SampleService sampleService)
     {
         this.sampleService = sampleService;

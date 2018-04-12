@@ -21,3 +21,20 @@ Spring looks up for qualifying beans/ Configuration in the packages provided in 
 		, "practice.spring.springconfig.services"})
 public class SpringconfigApplication
 ```
+
+### Java Configuration
+```
+Create Java configuration class with @Configuration annotation.
+In the configuration class create method with @Bean annotation to configure bean.
+Note that the bean is not of type @Component
+
+@Configuration
+public class SpringConfiguration {
+
+    @Bean
+    public SampleService javaConfiguredSampleService()
+    {
+        return new JavaConfiguredSampleService();
+    }
+}
+```
