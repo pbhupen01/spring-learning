@@ -37,6 +37,15 @@ public class SpringConfiguration {
         return new JavaConfiguredSampleService();
     }
 }
+
+You can also define Primary bean:
+
+@Bean
+@Primary
+public SampleService primaryConfiguredSampleService()
+{
+    return new PrimaryJavaConfiguredSampleService();
+}
 ```
 
 ### XML Configuration

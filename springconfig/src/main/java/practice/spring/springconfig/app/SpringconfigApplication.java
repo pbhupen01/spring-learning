@@ -26,5 +26,12 @@ public class SpringconfigApplication {
 		System.out.println(ctx.getBean(XMLConfiguredConstructorInjectedController.class).callService());
 		System.out.print("Primary: ");
 		System.out.println(ctx.getBean(PrimaryConfiguredConstructorInjectedController.class).callService());
+
+		System.out.println("\nPrototype: ");
+		System.out.println(ctx.getBean(JavaConfiguredConstructorInjectedController.class));
+		System.out.println(ctx.getBean(JavaConfiguredConstructorInjectedController.class));
+		System.out.println("Singleton: ");
+		System.out.println(ctx.getBean(PrimaryConfiguredConstructorInjectedController.class));
+		System.out.println(ctx.getBean(PrimaryConfiguredConstructorInjectedController.class));
 	}
 }
