@@ -8,12 +8,15 @@ import org.springframework.context.annotation.ImportResource;
 import practice.spring.springconfig.controllers.JavaConfiguredConstructorInjectedController;
 import practice.spring.springconfig.controllers.PrimaryConfiguredConstructorInjectedController;
 import practice.spring.springconfig.controllers.XMLConfiguredConstructorInjectedController;
+import practice.spring.springconfig.property.ApplicationPropertyReader;
+import practice.spring.springconfig.property.DataSourcePropertyReader;
 
 @SpringBootApplication
 @ImportResource("classpath:spring-config.xml")
 @ComponentScan(basePackages = {"practice.spring.springconfig.config"
 		, "practice.spring.springconfig.controllers"
-		, "practice.spring.springconfig.services"})
+		, "practice.spring.springconfig.services"
+		, "practice.spring.springconfig.property"})
 public class SpringconfigApplication {
 
 	public static void main(String[] args) {
@@ -33,5 +36,12 @@ public class SpringconfigApplication {
 		System.out.println("Singleton: ");
 		System.out.println(ctx.getBean(PrimaryConfiguredConstructorInjectedController.class));
 		System.out.println(ctx.getBean(PrimaryConfiguredConstructorInjectedController.class));
+
+
+		System.out.println("\n Application Configuration");
+		System.out.println(ctx.getBean(ApplicationPropertyReader.class));
+
+		System.out.println("\n Datasource Configuration");
+		System.out.println(ctx.getBean(DataSourcePropertyReader.class));
 	}
 }

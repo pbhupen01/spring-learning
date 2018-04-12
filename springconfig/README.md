@@ -58,3 +58,33 @@ Import configuration:
 @ImportResource("classpath:spring-config.xml")
 public class SpringconfigApplication 
 ```
+
+# Property Configuration
+```
+Configure properties in multiple yml files
+
+Class in which properties are to be read should be @Component.
+Specify property source using @PropetySource
+
+@Component
+@PropertySource("classpath:application.yml")
+public class ApplicationPropertyReader
+
+Read property using @Value
+
+@Value("${config.name.one}")
+
+Multiple property sources can also be specificed
+
+@Component
+@PropertySources({
+        @PropertySource("classpath:application.yml"),
+        @PropertySource("classpath:datasource.yml")
+})
+public class DataSourcePropertyReader 
+```
+
+# Read Environment Variables
+```
+
+```
