@@ -38,3 +38,14 @@ public class SpringConfiguration {
     }
 }
 ```
+
+### XML Configuration
+```
+Define bean in spring-config.xml file
+Note that the bean is not of type @Component
+
+Import configuration:
+
+@ImportResource("classpath:spring-config.xml")
+public class SpringconfigApplication 
+```

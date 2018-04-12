@@ -4,11 +4,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ImportResource;
 import practice.spring.springconfig.controllers.JavaConfiguredConstructorInjectedController;
 import practice.spring.springconfig.controllers.PrimaryConfiguredConstructorInjectedController;
 import practice.spring.springconfig.controllers.XMLConfiguredConstructorInjectedController;
 
 @SpringBootApplication
+@ImportResource("classpath:spring-config.xml")
 @ComponentScan(basePackages = {"practice.spring.springconfig.config"
 		, "practice.spring.springconfig.controllers"
 		, "practice.spring.springconfig.services"})
