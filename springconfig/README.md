@@ -86,5 +86,10 @@ public class DataSourcePropertyReader
 
 # Read Environment Variables
 ```
+Read environment variables using Environment class
 
+@Autowired
+Environment env;
+    
+env.getProperty("USERNAME")    
 ```
