@@ -9,3 +9,5 @@
 
 [Docker](https://github.com/pbhupen01/spring-learning/blob/master/docker/README.md)
 
+[JPA Basics](https://github.com/pbhupen01/spring-learning/blob/master/jpabasics/README.md)
+
