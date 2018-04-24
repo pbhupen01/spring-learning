@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import practice.spring.springmvc.model.Product;
 import practice.spring.springmvc.repositories.ProductRepository;
+import practice.spring.springmvc.utils.ProductUtils;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
@@ -25,7 +26,7 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product createProduct(Product product) {
-        Product searchProduct = findProductById(product.getId());
+        Product searchProduct = ProductUtils.findProductById(productRepository, product.getId());
         if(searchProduct != null)
         {
             throw new EntityExistsException(String.format("Product with ID %d already exists.", product.getId()));
@@ -35,7 +36,7 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product findProduct(Long productId) {
-        Product product = findProductById(productId);
+        Product product = ProductUtils.findProductById(productRepository, productId);
         if(product == null)
         {
             throw new EntityNotFoundException(String.format("Product with ID %d not found.", productId));
@@ -45,7 +46,7 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public void deleteProduct(Long productId) {
-        Product product = findProductById(productId);
+        Product product = ProductUtils.findProductById(productRepository, productId);
         if(product == null)
         {
             throw new EntityNotFoundException(String.format("Product with ID %d not found.", productId));
@@ -55,7 +56,7 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product updateProduct(Product product) {
-        Product searchProduct = findProductById(product.getId());
+        Product searchProduct = ProductUtils.findProductById(productRepository, product.getId());
         if(searchProduct == null)
         {
             throw new EntityNotFoundException(String.format("Product with ID %d not found.", product.getId()));
@@ -76,13 +77,4 @@ public class ProductServiceImpl implements ProductService{
         return productRepository.save(product);
     }
 
-    private Product findProductById(Long productId)
-    {
-        Optional<Product> product = productRepository.findById(productId);
-        if(product.isPresent())
-        {
-            return product.get();
-        }
-        return null;
-    }
 }

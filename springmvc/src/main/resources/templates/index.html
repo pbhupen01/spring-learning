@@ -25,7 +25,14 @@
             <div class="panel panel-primary">
 
                 <div class="panel-heading">
-                    <h1 class="panel-title">My Products!</h1>
+                    <div class="row">
+                        <div class="col-md-11 ">
+                            <h1 class="panel-title">My Products</h1>
+                        </div>
+                        <div class="col-md-1">
+                            <a class="btn btn-default" href="#" th:href="@{'/product/new/'}" role="button">New</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive" th:if="${not #lists.isEmpty(products)}">
@@ -48,9 +55,6 @@
                             </tr>
                         </table>
                     </div>
-                </div>
-                <div>
-                    <a href="#" th:href="@{'/product/new/'}">New</a>
                 </div>
             </div>
         </div>

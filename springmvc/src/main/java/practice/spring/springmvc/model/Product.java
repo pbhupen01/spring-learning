@@ -32,6 +32,9 @@ public class Product {
     @Enumerated(value = EnumType.STRING)
     private Size size;
 
+    @Lob
+    private Byte[] image;
+
     public Product(){
     }
 

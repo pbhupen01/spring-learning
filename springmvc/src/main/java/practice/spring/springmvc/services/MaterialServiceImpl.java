@@ -5,6 +5,7 @@ import practice.spring.springmvc.model.Material;
 import practice.spring.springmvc.model.Product;
 import practice.spring.springmvc.repositories.ProductRepository;
 import practice.spring.springmvc.repositories.UnitOfMeasureRepository;
+import practice.spring.springmvc.utils.ProductUtils;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
@@ -24,7 +25,7 @@ public class MaterialServiceImpl implements MaterialService {
     @Override
     public Material findByProductIdAndMaterialId(Long productId, Long materialId) {
 
-        Product product = findProductById(productId);
+        Product product = ProductUtils.findProductById(productRepository, productId);
         if(product == null)
         {
             throw new EntityNotFoundException(String.format("Product with ID %d not found.", productId));
@@ -40,7 +41,7 @@ public class MaterialServiceImpl implements MaterialService {
     @Override
     public Material saveMaterial(Material material) {
         Long productId = material.getProduct().getId();
-        Product product = findProductById(productId);
+        Product product = ProductUtils.findProductById(productRepository, productId);
         if(product == null)
         {
             throw new EntityNotFoundException(String.format("Product with ID %d not found.", productId));
@@ -78,7 +79,7 @@ public class MaterialServiceImpl implements MaterialService {
 
     @Override
     public void deleteById(Long productId, Long materialId) {
-        Product product = findProductById(productId);
+        Product product = ProductUtils.findProductById(productRepository, productId);
         if(product == null)
         {
             throw new EntityNotFoundException(String.format("Product with ID %d not found.", productId));
@@ -92,15 +93,5 @@ public class MaterialServiceImpl implements MaterialService {
             product.getMaterials().remove(material);
             productRepository.save(product);
         }
-    }
-
-    private Product findProductById(Long productId)
-    {
-        Optional<Product> product = productRepository.findById(productId);
-        if(product.isPresent())
-        {
-            return product.get();
-        }
-        return null;
     }
 }

@@ -26,6 +26,7 @@ public class ProductToProductCommand implements Converter<Product, ProductComman
         dest.setSize(source.getSize());
         dest.setName(source.getName());
         dest.setNote(nodeConverter.convert(source.getNote()));
+        dest.setImage(source.getImage());
         source.getMaterials().stream().map(materialConverter::convert).forEach(dest::addMaterialCommand);
         source.getCategories().stream().map(categoryConverter::convert).forEach(dest::addCategoryCommand);
         return dest;

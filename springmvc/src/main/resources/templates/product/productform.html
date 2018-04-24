@@ -52,6 +52,22 @@
                                         </label>
                                     </div>
                                 </div>
+                                <div class="col-md-3 form-group">
+                                    <label>Size:</label>
+                                    <select class="form-control" th:field="*{size}">
+                                        <option th:each="sizeValue : ${T(practice.spring.springmvc.model.Size).values()}"
+                                                th:value="${sizeValue.name()}"
+                                                th:text="${sizeValue.name()}"
+                                        >val</option>
+                                    </select>
+                                    <select class="form-control" th:remove="all">
+                                        <option>S</option>
+                                        <option>M</option>
+                                        <option>L</option>
+                                        <option>XL</option>
+                                        <option>XXL</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>

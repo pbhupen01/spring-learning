@@ -20,6 +20,7 @@ public class ProductCommand {
     private Set<MaterialCommand> materials = new HashSet();
     private Size size;
     private Set<CategoryCommand> categories = new HashSet();
+    private Byte[] image;
 
     public void addMaterialCommand(MaterialCommand materialCommand)
     {

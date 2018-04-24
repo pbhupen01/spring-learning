@@ -25,7 +25,14 @@
             <div class="pannel-group">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h1 class="panel-title" th:text="${product.description}">Product Description Here!</h1>
+                        <div class="col-md-3">
+                            <h1 class="panel-title" th:text="${product.description}">Product Description Here!</h1>
+                        </div>
+
+                        <div class="col-md-1">
+                            <a class="btn btn-default" href="#"
+                               th:href="@{'/product/' + ${product.id} + '/image'}" role="button">Change Image</a>
+                        </div>
                     </div>
                     <div class="panel-body">
                         <div class="row">
@@ -36,6 +43,11 @@
                                 <ul>
                                     <li th:each="category : ${product.categories}" th:text="${category.getDescription()}">cat three</li>
                                 </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <img src="../../static/images/guacamole400x400WithX.jpg"
+                                     th:src="@{'/product/' + ${product.id} + '/productimage'}"
+                                     width="200" height="200">
                             </div>
                         </div>
                     </div>
@@ -66,10 +78,10 @@
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <a href="#" th:href="@{'/index'}">Back</a>
-                    </div>
                 </div>
+            </div>
+            <div>
+                <a href="#" th:href="@{'/index'}">Back</a>
             </div>
         </div>
     </div>
