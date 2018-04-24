@@ -32,6 +32,12 @@ public class Product {
     @Enumerated(value = EnumType.STRING)
     private Size size;
 
+    public Product(){
+    }
+
+    public Product(long id){
+        this.id = id;
+    }
 
     public void setNote(Note note) {
         this.note = note;

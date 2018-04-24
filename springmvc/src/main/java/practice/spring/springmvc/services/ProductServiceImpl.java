@@ -65,7 +65,7 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public Set<Product> getProducts() {
         Set<Product> products = new HashSet();
-        productRepository.findAll().iterator().forEachRemaining(products::add);
+        productRepository.findAll().forEach(products::add);
         return products;
     }
 
