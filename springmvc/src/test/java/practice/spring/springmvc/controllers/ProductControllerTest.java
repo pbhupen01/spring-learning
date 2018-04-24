@@ -10,6 +10,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
+import practice.spring.springmvc.converters.ProductCommandToProduct;
+import practice.spring.springmvc.converters.ProductToProductCommand;
 import practice.spring.springmvc.model.Product;
 import practice.spring.springmvc.services.ProductService;
 
@@ -28,7 +30,7 @@ public class ProductControllerTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        controller = new ProductController(productService);
+        controller = new ProductController(productService, new ProductCommandToProduct(), new ProductToProductCommand());
     }
 
     @Test

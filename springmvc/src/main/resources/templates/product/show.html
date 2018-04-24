@@ -34,9 +34,7 @@
                             </div>
                             <div class="col-md-9">
                                 <ul>
-                                    <li>cat one</li>
-                                    <li>cat two</li>
-                                    <li>cat three</li>
+                                    <li th:each="category : ${product.categories}" th:text="${category.getDescription()}">cat three</li>
                                 </ul>
                             </div>
                         </div>
@@ -50,9 +48,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <ul>
-                                    <li>1 Cup of milk</li>
-                                    <li>1 Teaspoon of chocolate</li>
-                                    <li>1 Teaspoon of Sugar</li>
+                                    <li th:each="material : ${product.materials}"
+                                        th:text="${(material.unitOfMeasure.getDescription() + ' - ' + material.getDescription())}">Default</li>
                                 </ul>
                             </div>
                         </div>
@@ -65,9 +62,12 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.</p>
+                                <p th:text="${product.note.notes}"> Default</p>
                             </div>
                         </div>
+                    </div>
+                    <div>
+                        <a href="#" th:href="@{'/index'}">Back</a>
                     </div>
                 </div>
             </div>
@@ -75,4 +75,5 @@
     </div>
 </div>
 </body>
+
 </html>

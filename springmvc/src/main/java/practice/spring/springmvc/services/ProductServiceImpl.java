@@ -7,6 +7,7 @@ import practice.spring.springmvc.repositories.ProductRepository;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -67,6 +68,12 @@ public class ProductServiceImpl implements ProductService{
         Set<Product> products = new HashSet();
         productRepository.findAll().forEach(products::add);
         return products;
+    }
+
+    @Transactional
+    @Override
+    public Product saveProduct(Product product) {
+        return productRepository.save(product);
     }
 
     private Product findProductById(Long productId)

@@ -15,4 +15,6 @@ public interface ProductService {
     public Product updateProduct(Product product);
 
     public Set<Product> getProducts();
+
+    public Product saveProduct(Product product);
 }
