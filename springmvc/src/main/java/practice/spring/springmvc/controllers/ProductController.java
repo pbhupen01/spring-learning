@@ -1,12 +1,16 @@
 package practice.spring.springmvc.controllers;
 
+import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import practice.spring.springmvc.commands.ProductCommand;
 import practice.spring.springmvc.converters.ProductCommandToProduct;
 import practice.spring.springmvc.converters.ProductToProductCommand;
+import practice.spring.springmvc.exception.ProductNotFoundException;
 import practice.spring.springmvc.model.Product;
 import practice.spring.springmvc.services.ProductService;
 
@@ -64,5 +68,19 @@ public class ProductController {
 
         productService.deleteProduct(Long.valueOf(id));
         return "redirect:/";
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(ProductNotFoundException.class)
+    public ModelAndView handleNotFound(Exception exception){
+
+        log.error("Handling not found exception");
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.setViewName("404error");
+        modelAndView.addObject("exception", exception);
+
+        return modelAndView;
     }
 }

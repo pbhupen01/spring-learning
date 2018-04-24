@@ -2,6 +2,7 @@ package practice.spring.springmvc.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import practice.spring.springmvc.exception.ProductNotFoundException;
 import practice.spring.springmvc.model.Product;
 import practice.spring.springmvc.repositories.ProductRepository;
 import practice.spring.springmvc.utils.ProductUtils;
@@ -39,7 +40,7 @@ public class ProductServiceImpl implements ProductService{
         Product product = ProductUtils.findProductById(productRepository, productId);
         if(product == null)
         {
-            throw new EntityNotFoundException(String.format("Product with ID %d not found.", productId));
+            throw new ProductNotFoundException(String.format("Product with ID %d not found.", productId));
         }
         return product;
     }
