@@ -19,7 +19,7 @@ public class UnitOfMeasureCommandToUnitOfMeasure implements Converter<UnitOfMeas
         }
         UnitOfMeasure dest = new UnitOfMeasure();
         dest.setId(source.getId());
-        dest.setUom(source.getUom());
+        dest.setName(source.getName());
         dest.setDescription(source.getDescription());
         return dest;
     }

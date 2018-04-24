@@ -42,8 +42,8 @@ public class ProductBootStrap implements ApplicationListener<ContextRefreshedEve
         List<Product> products = new ArrayList();
 
         // Get UOMs
-        UnitOfMeasure lengthUom = unitOfMeasureRepository.findByUom("Length").get();
-        UnitOfMeasure breadthUom = unitOfMeasureRepository.findByUom("Breadth").get();
+        UnitOfMeasure lengthUom = unitOfMeasureRepository.findByName("Length").get();
+        UnitOfMeasure breadthUom = unitOfMeasureRepository.findByName("Breadth").get();
 
         // Get Categories
         Category topWearCategory = categoryRepository.findByName("TopWear").get();

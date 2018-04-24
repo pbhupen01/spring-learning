@@ -23,8 +23,8 @@ public class UnitOfMeasureRepositoryTest {
     }
 
     @Test
-    public void findByUom(){
-        Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByUom("Length");
+    public void findByName(){
+        Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByName("Length");
 
         Assert.assertEquals("Length", uomOptional.get().getDescription());
     }

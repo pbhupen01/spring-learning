@@ -9,5 +9,5 @@ import java.util.Optional;
 @Repository
 public interface UnitOfMeasureRepository extends CrudRepository<UnitOfMeasure, Long> {
 
-    Optional<UnitOfMeasure> findByUom(String uom);
+    Optional<UnitOfMeasure> findByName(String uom);
 }

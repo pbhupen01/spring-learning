@@ -10,6 +10,6 @@ import lombok.Setter;
 public class UnitOfMeasureCommand {
 
     private Long id;
-    private String uom;
+    private String name;
     private String description;
 }

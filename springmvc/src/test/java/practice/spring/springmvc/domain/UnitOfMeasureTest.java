@@ -14,7 +14,7 @@ public class UnitOfMeasureTest {
         unitOfMeasure = new UnitOfMeasure();
         unitOfMeasure.setId(1L);
         unitOfMeasure.setDescription("Test Unit");
-        unitOfMeasure.setUom("Test");
+        unitOfMeasure.setName("Test");
     }
 
     @Test
