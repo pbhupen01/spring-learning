@@ -20,20 +20,20 @@
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <!--/*@thymesVar id="ingredient" type="guru.springframework.commands.IngredientCommand"*/-->
+
             <form  th:object="${material}" th:action="@{'/product/' + ${material.getProductId()} + '/material'} " method="post">
                 <input type="hidden" th:field="*{id}"/>
                 <div class="pannel-group">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <h1 class="panel-title">Edit Ingredient Information</h1>
+                            <h1 class="panel-title">Edit Material Information</h1>
                         </div>
                         <div class="panel-body">
 
 
                             <div class="row">
                                 <div class="col-md-3 form-group">
-                                    <label>Description:</label>
+                                    <label>Name:</label>
                                     <input type="text" class="form-control" th:field="*{name}"/>
                                 </div>
 
@@ -47,7 +47,7 @@
                                     <select class="form-control" name="uom.id">
                                         <option th:each="uomEach : ${uomList}"
                                                 th:value="${uomEach.id}"
-                                                th:selected="${uomEach.id.equals(ingredient.uom.id)}"
+                                                th:selected="${uomEach.id.equals(material.unitOfMeasure.id)}"
                                                 th:text="${uomEach.description}">Each</option>
                                     </select>
                                 </div>

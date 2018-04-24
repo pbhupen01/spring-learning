@@ -5,6 +5,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import practice.spring.springmvc.commands.MaterialCommand;
 import practice.spring.springmvc.model.Material;
+import practice.spring.springmvc.model.Product;
 
 @Component
 public class MaterialCommandToMaterial implements Converter<MaterialCommand , Material> {
@@ -20,6 +21,12 @@ public class MaterialCommandToMaterial implements Converter<MaterialCommand , Ma
 
         Material material = new Material();
         material.setId(materialCommand.getId());
+        if(materialCommand.getProductId() != null)
+        {
+            Product product = new Product(materialCommand.getProductId());
+            product.addMaterial(material);
+            material.setProduct(product);
+        }
         material.setName(materialCommand.getName());
         material.setDescription(materialCommand.getDescription());
         UnitOfMeasureCommandToUnitOfMeasure converter = new UnitOfMeasureCommandToUnitOfMeasure();

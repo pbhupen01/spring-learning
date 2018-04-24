@@ -5,11 +5,13 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
+import practice.spring.springmvc.converters.MaterialCommandToMaterial;
 import practice.spring.springmvc.converters.MaterialToMaterialCommand;
 import practice.spring.springmvc.converters.ProductCommandToProduct;
 import practice.spring.springmvc.converters.ProductToProductCommand;
@@ -17,6 +19,9 @@ import practice.spring.springmvc.model.Material;
 import practice.spring.springmvc.model.Product;
 import practice.spring.springmvc.services.MaterialService;
 import practice.spring.springmvc.services.ProductService;
+import practice.spring.springmvc.services.UnitOfMeasureService;
+
+import java.util.HashSet;
 
 public class MaterialControllerTest {
 
@@ -25,6 +30,9 @@ public class MaterialControllerTest {
 
     @Mock
     MaterialService materialService;
+
+    @Mock
+    UnitOfMeasureService unitOfMeasureService;
 
     @Mock
     Model model;
@@ -37,9 +45,9 @@ public class MaterialControllerTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        controller = new MaterialController(productService, materialService,
+        controller = new MaterialController(productService, materialService, unitOfMeasureService,
                 new ProductCommandToProduct(), new ProductToProductCommand(),
-                new MaterialToMaterialCommand()
+                new MaterialToMaterialCommand(), new MaterialCommandToMaterial()
         );
 
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
@@ -85,40 +93,48 @@ public class MaterialControllerTest {
 
         //when
         Mockito.when(materialService.findByProductIdAndMaterialId(Mockito.anyLong(), Mockito.anyLong())).thenReturn(material);
-        when(unitOfMeasureService.listAllUoms()).thenReturn(new HashSet<>());
+        Mockito.when(unitOfMeasureService.listAllUoms()).thenReturn(new HashSet<>());
 
         //then
-        mockMvc.perform(get("/recipe/1/ingredient/2/update"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("recipe/ingredient/ingredientform"))
-                .andExpect(model().attributeExists("ingredient"))
-                .andExpect(model().attributeExists("uomList"));
+        mockMvc.perform(MockMvcRequestBuilders.get("/product/1/material/2/update"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("product/material/materialform"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("material"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("uomList"));
     }
 
     @Test
     public void testSaveOrUpdate() throws Exception {
         //given
-        IngredientCommand command = new IngredientCommand();
-        command.setId(3L);
-        command.setRecipeId(2L);
-
-        //given
         Material material = new Material();
+        material.setId(3L);
+        material.setProduct(new Product(2L));
 
         //when
         Mockito.when(materialService.findByProductIdAndMaterialId(Mockito.anyLong(), Mockito.anyLong())).thenReturn(material);
 
         //when
-        when(ingredientService.saveIngredientCommand(any())).thenReturn(command);
+        Mockito.when(materialService.saveMaterial(Mockito.any())).thenReturn(material);
 
         //then
-        mockMvc.perform(post("/recipe/2/ingredient")
+        mockMvc.perform(MockMvcRequestBuilders.post("/product/2/material")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("id", "")
-                .param("description", "some string")
-        )
-                .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/recipe/2/ingredient/3/show"));
+                .param("description", "some string"))
+                .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
+                .andExpect(MockMvcResultMatchers.view().name("redirect:/product/2/material/3/show"));
+
+    }
+
+    @Test
+    public void testDeleteIngredient() throws Exception {
+
+        //then
+        mockMvc.perform(MockMvcRequestBuilders.get("/product/2/material/3/delete"))
+                .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
+                .andExpect(MockMvcResultMatchers.view().name("redirect:/product/2/materials"));
+
+        Mockito.verify(materialService, Mockito.times(1)).deleteById(Mockito.anyLong(), Mockito.anyLong());
 
     }
 }

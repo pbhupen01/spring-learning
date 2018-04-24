@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>List Ingredients</title>
+    <title>List Materials</title>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -17,15 +17,21 @@
             crossorigin="anonymous" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
 </head>
 <body>
-<!--/*@thymesVar id="recipe" type="guru.springframework.domain.Recipe"*/-->
-<!--/*@thymesVar id="ingredients" type="java.util.Set<guru.springframework.commands.IngredientCommand>"*/-->
+
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-primary">
 
                 <div class="panel-heading">
-                    <h1 class="panel-title">Ingredients</h1>
+                    <div class="row">
+                        <div class="col-md-11 ">
+                            <h1 class="panel-title">Materials</h1>
+                        </div>
+                        <div class="col-md-1">
+                            <a class="btn btn-default" href="#" th:href="@{'/product/' + ${product.id} + '/material/new'}" role="button">New</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="panel-body">
 
@@ -56,7 +62,7 @@
                             </tr>
                             <tr th:each="material : ${product.materials}">
                                 <td th:text="${material.id}">334</td>
-                                <td th:text="${(material.unitOfMeasure.getDescription() + ' - ' + material.getDescription())} + '/show'">Tasty Goodnees 3</td>
+                                <td th:text="${(material.unitOfMeasure.getDescription() + ' - ' + material.getDescription())}">Tasty Goodnees 3</td>
                                 <td><a href="#" th:href="@{'/product/' + ${product.id} + '/material/' + ${material.id} + '/show'}">View</a></td>
                                 <td><a href="#" th:href="@{'/product/' + ${product.id} + '/material/' + ${material.id} + '/update'}">Update</a></td>
                                 <td><a href="#" th:href="@{'/product/' + ${product.id} + '/material/' + ${material.id} + '/delete'}">Delete</a></td>

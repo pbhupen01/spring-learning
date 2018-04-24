@@ -10,6 +10,7 @@ import lombok.Setter;
 public class MaterialCommand {
 
     private Long id;
+    private Long productId;
     private String name;
     private String description;
     private UnitOfMeasureCommand unitOfMeasure;

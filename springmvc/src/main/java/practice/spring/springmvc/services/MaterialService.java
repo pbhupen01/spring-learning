@@ -7,4 +7,6 @@ public interface MaterialService {
     public Material findByProductIdAndMaterialId(Long productId, Long materialId);
 
     public Material saveMaterial(Material material);
+
+    public void deleteById(Long productId, Long materialId);
 }

@@ -20,6 +20,10 @@ public class MaterialToMaterialCommand implements Converter<Material, MaterialCo
 
         MaterialCommand materialCommand = new MaterialCommand();
         materialCommand.setId(material.getId());
+        if(material.getProduct() != null)
+        {
+            materialCommand.setProductId(material.getProduct().getId());
+        }
         materialCommand.setName(material.getName());
         materialCommand.setDescription(material.getDescription());
         UnitOfMeasureToUnitOfMeasureCommand converter = new UnitOfMeasureToUnitOfMeasureCommand();
