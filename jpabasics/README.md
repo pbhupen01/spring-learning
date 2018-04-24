@@ -123,3 +123,15 @@ ALL : All the above cascade types are applied
 @Enumerated(value = EnumType.STRING)
 private Size size;
 ```
+
+# Database Initialization
+```
+It can be configured by setting following field in applicaiton configuration.
+spring.jpa.hibernate.ddl-auto
+
+Values:
+none, validate, update, create, create-drop
+
+Spring can also load data from import.sql 
+Only executed if Hibernate’s ddl-auto property is set to create or create-drop
+```
