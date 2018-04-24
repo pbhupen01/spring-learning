@@ -35,12 +35,16 @@
                                 <th>ID</th>
                                 <th>Description</th>
                                 <th>View</th>
+                                <th>Update</th>
+                                <th>Delete</th>
                             </tr>
                             </thead>
                             <tr th:each="product : ${products}">
                                 <td th:text="${product.id}">ID</td>
                                 <td th:text="${product.description}">Description</td>
-                                <td><a href="#" th:href="@{'/product/show/' + ${product.id}}">View</a></td>
+                                <td><a href="#" th:href="@{'/product/' + ${product.id} + '/show'}">View</a></td>
+                                <td><a href="#" th:href="@{'/product/' + ${product.id} + '/update'}">Update</a></td>
+                                <td><a href="#" th:href="@{'/product/' + ${product.id} + '/delete'}">Delete</a></td>
                             </tr>
                         </table>
                     </div>

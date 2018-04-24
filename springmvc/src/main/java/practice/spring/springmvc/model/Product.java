@@ -41,12 +41,18 @@ public class Product {
 
     public void setNote(Note note) {
         this.note = note;
-        note.setProduct(this);
+        if(note != null)
+        {
+            note.setProduct(this);
+        }
     }
 
     public Product addMaterial(Material material)
     {
-        material.setProduct(this);
+        if(material != null)
+        {
+            material.setProduct(this);
+        }
         this.materials.add(material);
         return this;
     }

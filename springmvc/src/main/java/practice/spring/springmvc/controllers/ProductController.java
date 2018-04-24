@@ -1,17 +1,16 @@
 package practice.spring.springmvc.controllers;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import practice.spring.springmvc.commands.ProductCommand;
 import practice.spring.springmvc.converters.ProductCommandToProduct;
 import practice.spring.springmvc.converters.ProductToProductCommand;
 import practice.spring.springmvc.model.Product;
 import practice.spring.springmvc.services.ProductService;
 
+@Slf4j
 @Controller
 public class ProductController {
 
@@ -26,7 +25,7 @@ public class ProductController {
         this.productToProductCommand = productToProductCommand;
     }
 
-    @RequestMapping("/product/show/{id}")
+    @RequestMapping("/product/{id}/show")
     public String showById(@PathVariable String id, Model model){
 
         model.addAttribute("product", productService.findProduct(Long.valueOf(id)));
@@ -35,7 +34,7 @@ public class ProductController {
     }
 
     @RequestMapping("product/new")
-    public String newRecipe(Model model){
+    public String newProduct(Model model){
         model.addAttribute("product", new ProductCommand());
 
         return "product/productform";
@@ -46,6 +45,24 @@ public class ProductController {
     public String saveOrUpdate(@ModelAttribute ProductCommand command){
         Product savedProduct = productService.saveProduct(productCommandToProduct.convert(command));
 
-        return "redirect:/product/show/" + savedProduct.getId();
+        return "redirect:/product/" + savedProduct.getId() + "/show";
+    }
+
+    @RequestMapping("product/{id}/update")
+    public String updateProduct(@PathVariable String id, Model model){
+
+        Product product = productService.findProduct(Long.valueOf(id));
+        model.addAttribute("product", productToProductCommand.convert(product));
+        return  "product/productform";
+    }
+
+    @GetMapping
+    @RequestMapping("product/{id}/delete")
+    public String deleteById(@PathVariable String id){
+
+        log.debug("Deleting id: " + id);
+
+        productService.deleteProduct(Long.valueOf(id));
+        return "redirect:/";
     }
 }
