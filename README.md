@@ -11,3 +11,9 @@
 
 [JPA Basics](https://github.com/pbhupen01/spring-learning/blob/master/jpabasics/README.md)
 
+[SPRING MVC](https://github.com/pbhupen01/spring-learning/blob/master/springmvc/README.md)
+
+[Spring Testing](https://github.com/pbhupen01/spring-learning/blob/master/springtest/README.md)
+
+[REST](https://github.com/pbhupen01/spring-learning/blob/master/springrest/README.md)
+
