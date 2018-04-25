@@ -1,5 +1,33 @@
+spring:
+  application:
+    name: "DI"
+  profiles:
+    active: dev #set profile here
+
 config:
   name:
     one: "1"
     two: "2"
     three: "3"
+
+---
+
+# Defining test profile
+spring:
+  profiles: test
+config:
+  name:
+    one: "test-1"
+    two: "test-2"
+    three: "test-3"
+
+---
+
+# Defining dev profile
+spring:
+  profiles: dev
+config:
+  name:
+    one: "dev-1"
+    two: "dev-2"
+    three: "dev-3"

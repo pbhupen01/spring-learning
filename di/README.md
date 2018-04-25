@@ -67,3 +67,16 @@ Specify one of the qualifying bean as primary by @Primary annotation
 
 Only one Primary bean is allowed
 ```
+# Bean Lifecycle
+```
+Bean Created
+setBeanName
+setBeanFactory
+setApplicationContext
+beforeInit
+postConstruct
+afterPropertiesSet
+afterInit
+preDestroy
+Bean destroyed
+```

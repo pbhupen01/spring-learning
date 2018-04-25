@@ -51,6 +51,48 @@ public SampleService primaryConfiguredSampleService()
 }
 ```
 
+#### Bean Factory
+You can configure bean factory in Configuration file.
+
+Create Factory
+```java
+@Component
+public class SampleServiceFactory {
+
+    public SampleService createSampleService(String type)
+    {
+        switch (type)
+        {
+            case "xml":
+                return new XMLConfiguredSampleService();
+
+            case "java":
+                return new JavaConfiguredSampleService();
+
+            case "primary":
+                return new PrimaryJavaConfiguredSampleService();
+
+        }
+        return null;
+    }
+}
+```
+
+Write configuration method using the factory
+```java
+@Bean
+public SampleServiceFactory sampleServiceFactory() {
+    return new SampleServiceFactory();
+}
+
+@Bean
+@Scope(value = "prototype")
+public SampleService javaConfiguredSampleService( SampleServiceFactory sampleServiceFactory)
+{
+    return sampleServiceFactory.createSampleService("java");
+}
+```
+
 ### XML Configuration
 Define bean in spring-config.xml file
 
@@ -101,3 +143,12 @@ Environment env;
     
 env.getProperty("USERNAME")    
 ```
+
+# Spring Boot Configuration
+
+| Annotation | Description |
+| --- | --- |
+| @Configuration | Declare class as spring configuration |
+| @EnableAutoConfiguration | Enables auto configuration. Optional exclude configuration.|
+| @ComponentScan | Scans for components in current and child packages |
+| @SpringBootApplication | Includes all of the above annotations |
