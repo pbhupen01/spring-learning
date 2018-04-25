@@ -10,14 +10,28 @@ Include jquery and css in templates.
 ```
 
 ## MVC
-```
-Create controllers with Model parameter
-Set attribute in the models
-Return the attribute key
+1. Create controllers with Model or @ModelAttribute parameters.
+2. Set attribute in models for methods with Model parameter.
+3. Read values in methods for @ModelAttribute parameters.
+4. Return template name
 
-Create template in resources/templates folder of name  "attrbute.html"
+Controller request mapping method with Model. It is used to display on UI.
+```
+@RequestMapping("/product/{id}/show")
+public String showById(@PathVariable String id, Model model){
+
+        model.addAttribute("product", productService.findProduct(Long.valueOf(id)));
+
+        return "product/show";
+}
 ```
 
+Controller request mapping method with @ModelAttribute. It is used to read from UI.
+```
+@PostMapping("product")
+public String saveOrUpdate(@Valid @ModelAttribute("product") ProductCommand command, BindingResult bindingResult){
+}
+```
 
 ## Exception Hanlding
 
