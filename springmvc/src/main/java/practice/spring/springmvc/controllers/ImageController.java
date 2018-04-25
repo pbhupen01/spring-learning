@@ -12,6 +12,7 @@ import practice.spring.springmvc.converters.ProductToProductCommand;
 import practice.spring.springmvc.model.Product;
 import practice.spring.springmvc.services.ImageService;
 import practice.spring.springmvc.services.ProductService;
+import static practice.spring.springmvc.utils.ControllerUtils.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
@@ -32,24 +33,23 @@ public class ImageController {
         this.productToProductCommand = productToProductCommand;
     }
 
-    @GetMapping("product/{id}/image")
+    @GetMapping(PRODUCT + "/{id}/" + IMAGE)
     public String showUploadForm(@PathVariable String id, Model model){
         Product product = productService.findProduct(Long.valueOf(id));
 
         model.addAttribute("product", productToProductCommand.convert(product));
 
-        return "product/imageuploadform";
+        return PRODUCT_IMAGE_UPLOAD_FORM;
     }
 
-    @PostMapping("product/{id}/image")
+    @PostMapping(PRODUCT + "/{id}/" + IMAGE)
     public String handleImagePost(@PathVariable String id, @RequestParam("imagefile") MultipartFile file){
 
         imageService.saveImageFile(Long.valueOf(id), file);
-
-        return "redirect:/product/" + id + "/show";
+        return REDIRECT + ":/" + PRODUCT + "/" + id + "/" + SHOW;
     }
 
-    @GetMapping("product/{id}/productimage")
+    @GetMapping(PRODUCT + "/{id}/" + PRODUCT_IMAGE)
     public void renderImageFromDB(@PathVariable String id, HttpServletResponse response) throws IOException {
         Product product = productService.findProduct(Long.valueOf(id));
 

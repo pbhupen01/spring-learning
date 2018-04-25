@@ -72,3 +72,51 @@ Spring MVC has 3 implementations of HandlerExceptionResolver
 * ExceptionHandlerExceptionResolver - Matches uncaught exceptions to @ExceptionHandler
 * ResponseStatusExceptionResolver - Looks for uncaught exceptions matching @ResponseStatus
 * DefaultHandlerExceptionResolver - Converts standard Spring Exceptions to HTTP status codes (Internal to Spring MVC)
+
+## Data validation with Spring
+Java and Hibernate provide annotations to specify validators for object fields.
+@Valid should be provided for fields in Controllers (method fields) along with validators in DTO, for which validation is required.
+
+```
+@NotBlank
+@Min
+@Max
+Size(min = 3, max = 255)
+
+@Email
+@CreditCarNumber
+@Url
+```
+
+To capture validation results use BindingResult in Controller methods.
+```
+@PostMapping("product")
+    public String saveOrUpdate(@Valid @ModelAttribute ProductCommand command, BindingResult bindingResult){
+
+        if(bindingResult.hasErrors())
+        {
+            for(ObjectError error : bindingResult.getAllErrors())
+            {
+                log.debug(error.getDefaultMessage());
+            }
+            return PRODUCT + "/" + PRODUCT_FORM;
+        }
+}
+```
+
+Custom error messages can be displayed in Web page on validation failures.
+Error message can be defined in message.properties file. Html pages should be modified to display error message.
+
+```
+# Set names of properties
+product.description=Description
+
+#Validaiton Messages
+#Order of precedence
+# 1 code.objectName.fieldName
+# 2 code.fieldName
+# 3 code.fieldType (Java data type)
+# 4 code
+NotBlank.product.description=Description Cannot Be Blank
+Size.product.description={0} must be between {2} and {1} characters long.
+```

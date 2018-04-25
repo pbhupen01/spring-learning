@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import practice.spring.springmvc.commands.ProductCommand;
@@ -13,6 +15,9 @@ import practice.spring.springmvc.converters.ProductToProductCommand;
 import practice.spring.springmvc.exception.ProductNotFoundException;
 import practice.spring.springmvc.model.Product;
 import practice.spring.springmvc.services.ProductService;
+import static practice.spring.springmvc.utils.ControllerUtils.*;
+
+import javax.validation.Valid;
 
 @Slf4j
 @Controller
@@ -41,12 +46,21 @@ public class ProductController {
     public String newProduct(Model model){
         model.addAttribute("product", new ProductCommand());
 
-        return "product/productform";
+        return PRODUCT + "/" + PRODUCT_FORM;
     }
 
     // Will be called by productform page.
     @PostMapping("product")
-    public String saveOrUpdate(@ModelAttribute ProductCommand command){
+    public String saveOrUpdate(@Valid @ModelAttribute("product") ProductCommand command, BindingResult bindingResult){
+
+        if(bindingResult.hasErrors())
+        {
+            for(ObjectError error : bindingResult.getAllErrors())
+            {
+                log.info(error.getDefaultMessage());
+            }
+            return PRODUCT + "/" + PRODUCT_FORM;
+        }
         Product savedProduct = productService.saveProduct(productCommandToProduct.convert(command));
 
         return "redirect:/product/" + savedProduct.getId() + "/show";
@@ -57,7 +71,7 @@ public class ProductController {
 
         Product product = productService.findProduct(Long.valueOf(id));
         model.addAttribute("product", productToProductCommand.convert(product));
-        return  "product/productform";
+        return  PRODUCT + "/" + PRODUCT_FORM;
     }
 
     @GetMapping
