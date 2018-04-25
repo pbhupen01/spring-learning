@@ -152,3 +152,46 @@ env.getProperty("USERNAME")
 | @EnableAutoConfiguration | Enables auto configuration. Optional exclude configuration.|
 | @ComponentScan | Scans for components in current and child packages |
 | @SpringBootApplication | Includes all of the above annotations |
+
+# Spring Profiles
+We can define multiple profiles in spring.
+
+One of the profile can be set active at a time.
+
+Specific profile can be used for testing by specifying profile name in @ActiveProfiles in test class.
+
+```yaml
+spring:
+  application:
+    name: "DI"
+  profiles:
+    active: dev #set profile here
+
+config:
+  name:
+    one: "1"
+    two: "2"
+    three: "3"
+
+---
+
+# Defining test profile
+spring:
+  profiles: test
+config:
+  name:
+    one: "test-1"
+    two: "test-2"
+    three: "test-3"
+
+---
+
+# Defining dev profile
+spring:
+  profiles: dev
+config:
+  name:
+    one: "dev-1"
+    two: "dev-2"
+    three: "dev-3"
+```
