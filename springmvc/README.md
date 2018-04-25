@@ -95,7 +95,7 @@ Java and Hibernate provide annotations to specify validators for object fields.
 @NotBlank
 @Min
 @Max
-Size(min = 3, max = 255)
+@Size(min = 3, max = 255)
 
 @Email
 @CreditCarNumber

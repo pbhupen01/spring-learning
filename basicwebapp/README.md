@@ -19,29 +19,34 @@ Builder is dependent class
 2. Simply specifying @ManyToMany will create two join (mapping) tables for the both tables. These mapping tables will have primary keys of both tables.
 className_fieldName
 
-creates house_persons
+   House Class. Following code creates house_persons table.
 ```java
+public class House{
 @ManyToMany
 Set<Person> persons
+}
 ```
 
-create person_houses
+   Person class. Following code creates create person_houses table.
 ```java
-Person class
+public class Person{
 @ManyToMany
 Set<House> houses
+}
 ```
 
 3. But there should be only one join table. To avoid creation of two mapping table use mappedBy in the **dependent table**. Provide field name of the main table to which it is mapped to.
 ```
-   Define in Person class.
-   skip creating person_houses table
-   only house_persons is created due to main table mapping
+Define in Person class.
+skip creating person_houses table
+only house_persons is created due to main table mapping
 ```
 
 ```java
+public class Person{
 @ManyToMany(mappedBy = "persons")
-houses
+Set<House> houses
+}
 ```
 
 4. You can provide custom name for join (mapping) table and fields in join table used for mapping in the **main table**.

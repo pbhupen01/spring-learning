@@ -1,11 +1,14 @@
 package practice.spring.springrest.domain;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Data
+@EqualsAndHashCode(exclude = {"subjects"})
+@Entity
 public class Student {
 
     @Id

@@ -52,14 +52,15 @@ public SampleService primaryConfiguredSampleService()
 ```
 
 ### XML Configuration
-```
 Define bean in spring-config.xml file
+
 Note that the bean is not of type @Component
 
 Import configuration:
-
+```java
 @ImportResource("classpath:spring-config.xml")
-public class SpringconfigApplication 
+public class SpringconfigApplication {
+}
 ```
 
 # Property Configuration
@@ -87,6 +88,8 @@ Multiple property sources can also be specificed
         @PropertySource("classpath:datasource.yml")
 })
 public class DataSourcePropertyReader 
+{
+]
 ```
 
 # Read Environment Variables

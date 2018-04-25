@@ -32,6 +32,10 @@ Can include spring context, database and message brokers.
 
 End to End testing of overall functionality of the system.
 
+## Spring Boot Test
+
+
+
 ## Code under test
 
 #### Controllers
@@ -78,11 +82,11 @@ MockitoAnnotations.initMocks(this)
 | Annotation | Description |
 | --- | --- |
 | @RunWith(SpringRunner.class) | Run test with Spring Boot Context |
-| @SpringBootTest | Search for Spring Boot Application for configuration |
-| @TestConfiguraiton | Specify a Spring configuration for your test |
+| @SpringBootTest | Search for Spring Boot Application for main configuration (one with @SpringBootApplication for instance), and use that to start a Spring application context. SpringBootTest loads complete application and injects all the beans which is can be slow.|
 | @WebMvcTest | Used to test web context without a full http server. Often @WebMvcTest will be limited to a single controller and used in combination with @MockBean to provide mock implementations for required collaborators. |
 | @DataJpaTest | Used to test data layer with embedded database |
 | @WebAppConfiguration | Indicates Spring should use a Web Application context |
+| @TestConfiguraiton | Specify a Spring configuration for your test |
 | @TestPropertySource | Configure the property sources for the test |
 | @ActiveProfiles | Set which Spring Profiles are active for the test |
 | @ContextConfiguration | Used to direct Spring how to configure the context for the test |
@@ -90,3 +94,88 @@ MockitoAnnotations.initMocks(this)
 | @DirtiesContext | Resets the Spring Context after the test (expensive to do) |
 | @MockBean | Injects Mockito Mock. Add mock to Spring ApplicationContext. If any existing single bean of the same type defined in the context will be replaced by the mock, if no existing bean is defined a new one will be added.|
 | @SpyBean | Injects Mockito Spy. Add spy to Spring ApplicationContext. If any existing single bean of the same type defined in the context will be replaced by the mock, if no existing bean is defined a new one will be added.|
+
+# Swagger
+Swagger is an open source software framework backed by a large ecosystem of tools that helps developers design, build, document, and consume RESTful Web services.
+
+Include Swagger dependency
+```xml
+
+<properties>
+	<springfox-swagger.version>2.7.0</springfox-swagger.version>
+</properties>
+
+<dependency>
+	<groupId>io.springfox</groupId>
+	<artifactId>springfox-swagger2</artifactId>
+	<version>${springfox-swagger.version}</version>
+</dependency>
+<dependency>
+	<groupId>io.springfox</groupId>
+	<artifactId>springfox-swagger-ui</artifactId>
+	<version>${springfox-swagger.version}</version>
+</dependency>
+```
+
+Add Swagger Configuration
+```java
+@EnableSwagger2
+@Configuration
+public class SwaggerConfiguration {
+
+    @Bean
+    public Docket api() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("rest")
+                .apiInfo(
+                        new ApiInfo("",
+                                "Spring Rest",
+                                "1.0",
+                                null,
+                                new Contact("Bhupendra Pandey", "", "pandeybhupen01@gmail.com"),
+                                null,
+                                null,
+                                Collections.emptyList())
+                )
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("practice.spring.springrest.controllers"))
+                .build();
+    }
+}
+```
+
+Add more details about API by using @Api and @ApiOperation
+```java
+@Api(description = "This is Subject API implementation")
+public class SubjectController {
+
+    @ApiOperation(
+            value = "Get Subject",
+            notes = "Returns Json data with Subject details"
+    )
+    @GetMapping
+    public ResponseEntity<SubjectDTO> findSubjectById()
+    {
+        return null;
+    }
+}
+```
+
+Add details about fields in API request using @ApiModelProperty
+```java
+public class SubjectDTO {
+
+    @ApiModelProperty(value = "This is Subject Id")
+    Long id;
+    @ApiModelProperty(value = "This is Subject name", required = true)
+    @NotBlank
+    String name;
+}
+```
+
+# Lombok
+Lombok is a java library that generates getter, setters, constructors etc with the help of annotations.
+
+| Annotation | Description |
+| --- | --- |
+| @Test | Identifies method as test method |
