@@ -1,11 +1,11 @@
 
 # Dependency Injection
-```
+
 There are three ways of dependency injection:
-Constructor
-Property
-Setter method
-```
+* Constructor
+* Property
+* Setter method
+
 **Note**
 * Classes in which these annotations are used should be Component/Service/Controller
 * Beans for which these annotations are used should also be Component/Service/Controller
@@ -23,28 +23,31 @@ Simply using Autowired for contructor, property and setter method will inject be
 ```
 
 ##### Multiple implementation with Qualifier
-```
 If there are multiple implementation then provide Qualifier("beanName") in Constructor, property, and setter method will inject bean at run time.
 
+```java
 @Autowired
 @Qualifier("setterSampleServiceImpl")
 public void setSampleService(SampleService sampleService)
 {
    this.sampleService = sampleService;
 }
+```
 
 You can also define qualifier for implementation class and use that defined name to inject bean at run time.
 
+```java
 @Qualifier("constructorImpl")
 public class ConstructorSampleServiceImpl implements SampleService
-
 ```
 
 ##### Multiple implementation with bean name
-```
+
 If there are multiple implementation then specifying parameter/property name as bean name in Constructor, property, and setter method will inject bean at run time.
+
 Provided only one injection is not specified.
 
+```java
 @Autowired
 public void setSampleService(SampleService setterSampleServiceImpl)
 {

@@ -15,30 +15,34 @@ There are three options for testing:
 Depending upon the test type we have to pickup any of the above for writing test cases.
 
 **Text Fixture**
+
 Fixed set of objects used as a baseline for running tests.
 Includes input data, mock objects, database used for testing.
 
 **Unit Tests**
+
 Test cases written in code to test code under test.
 
 **Integration Test**
+
 Test cases for testing integration between different components of the system.
 Can include spring context, database and message brokers.
 
 **Functional Testing**
+
 End to End testing of overall functionality of the system.
 
 ## Code under test
 
-##### Controllers
+#### Controllers
 
-##### Services
+#### Services
 
-##### Repositories
+#### Repositories
 
-##### Integration
+#### Integration
 
-##### Other Classes
+#### Other Classes
 Implement tests for the following types of classes using basic Junit. Unless they need any Mock or Spring Boot environment.
 * Converter
 * Domain
@@ -59,6 +63,11 @@ Implement tests for the following types of classes using basic Junit. Unless the
 
 ## Mockito Annotations
 
+Please note that to enable Mockito mocks following method has to be called.
+```java
+MockitoAnnotations.initMocks(this)
+```
+
 | Annotation | Description |
 | --- | --- |
 | @Mock | Declares bean Mockito Mock |
@@ -71,7 +80,7 @@ Implement tests for the following types of classes using basic Junit. Unless the
 | @RunWith(SpringRunner.class) | Run test with Spring Boot Context |
 | @SpringBootTest | Search for Spring Boot Application for configuration |
 | @TestConfiguraiton | Specify a Spring configuration for your test |
-| @WebMvcTest | Used to test web context without a full http server |
+| @WebMvcTest | Used to test web context without a full http server. Often @WebMvcTest will be limited to a single controller and used in combination with @MockBean to provide mock implementations for required collaborators. |
 | @DataJpaTest | Used to test data layer with embedded database |
 | @WebAppConfiguration | Indicates Spring should use a Web Application context |
 | @TestPropertySource | Configure the property sources for the test |
@@ -79,5 +88,5 @@ Implement tests for the following types of classes using basic Junit. Unless the
 | @ContextConfiguration | Used to direct Spring how to configure the context for the test |
 | @RestClientTest | Create a mock server for testing clients |
 | @DirtiesContext | Resets the Spring Context after the test (expensive to do) |
-| @MockBean | Injects Mockito Mock |
-| @SpyBean | Injects Mockito Spy |
+| @MockBean | Injects Mockito Mock. Add mock to Spring ApplicationContext. If any existing single bean of the same type defined in the context will be replaced by the mock, if no existing bean is defined a new one will be added.|
+| @SpyBean | Injects Mockito Spy. Add spy to Spring ApplicationContext. If any existing single bean of the same type defined in the context will be replaced by the mock, if no existing bean is defined a new one will be added.|

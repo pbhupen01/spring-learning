@@ -16,7 +16,7 @@ Include jquery and css in templates.
 4. Return template name
 
 Controller request mapping method with Model. It is used to display on UI.
-```
+```java
 @RequestMapping("/product/{id}/show")
 public String showById(@PathVariable String id, Model model){
 
@@ -27,7 +27,7 @@ public String showById(@PathVariable String id, Model model){
 ```
 
 Controller request mapping method with @ModelAttribute. It is used to read from UI.
-```
+```java
 @PostMapping("product")
 public String saveOrUpdate(@Valid @ModelAttribute("product") ProductCommand command, BindingResult bindingResult){
 }
@@ -39,7 +39,7 @@ public String saveOrUpdate(@Valid @ModelAttribute("product") ProductCommand comm
 Define Custom Exception with @ResponseStatue(HTTPStatus.XXXXX).
 Spring will send specified HTTP error code whenever custom exception is thrown.
 
-```
+```java
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class ProductNotFoundException extends RuntimeException {
 
@@ -54,7 +54,7 @@ public class ProductNotFoundException extends RuntimeException {
 Defining exception handler method in controller.
 Error can be linked to a view.
 
-```
+```java
 @ResponseStatus(HttpStatus.NOT_FOUND)
 @ExceptionHandler(ProductNotFoundException.class)
 public ModelAndView handleNotFound(){
@@ -72,7 +72,7 @@ public ModelAndView handleNotFound(){
 #### Controller Advice
 Create a single class with all the exception handler methods for all the controllers.
 
-```
+```java
 @ControllerAdvice
 public class ControllerExceptionHandle
 {
@@ -91,7 +91,7 @@ Spring MVC has 3 implementations of HandlerExceptionResolver
 Java and Hibernate provide annotations to specify validators for object fields.
 @Valid should be provided for fields in Controllers (method fields) along with validators in DTO, for which validation is required.
 
-```
+```java
 @NotBlank
 @Min
 @Max
@@ -103,7 +103,7 @@ Size(min = 3, max = 255)
 ```
 
 To capture validation results use BindingResult in Controller methods.
-```
+```java
 @PostMapping("product")
     public String saveOrUpdate(@Valid @ModelAttribute ProductCommand command, BindingResult bindingResult){
 
