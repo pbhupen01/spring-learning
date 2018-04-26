@@ -35,7 +35,7 @@ Third approach is to test specific controller.
 Controllers test can be written using Mockito. But that doesn't test actual REST request/response. So following approaches are recommended for Controllers tests.
 
 ### Using @SpringBootTest
-It starts server while running test. Preferred for Integration testing. No Mocks used.
+It starts server while running test. Preferred for Web Integration testing. No Mocks used.
 ```java
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -62,6 +62,8 @@ public class SubjectServerControllerTest {
 Another useful approach is to not start the server at all, but test only the layer below that, where Spring handles the incoming HTTP request and hands it off to your controller. That way, almost the full stack is used, and your code will be called exactly the same way as if it was processing a real HTTP request, but without the cost of starting the server.
 
 In this test, the full Spring application context is started, but without the server.
+
+Preferred for Integration test. No mocks used.
 
 ```java
 @RunWith(SpringRunner.class)
@@ -97,6 +99,43 @@ public class SubjectServerControllerTest {
 }
 ```
 
+### Using @WebMvcTest
+
+The test assertion is the same as in the previous case, but here Spring Boot is only instantiating the web layer, not the whole context. In an application with multiple controllers you can even ask for just one to be instantiated, using, for example @WebMvcTest(HomeController.class)
+
+Preferred for Controller test.
+```java
+@RunWith(SpringRunner.class)
+@WebMvcTest(SubjectController.class)
+public class SubjectServerControllerTest {
+
+    @MockBean
+    SubjectService subjectService;
+
+    @Autowired
+        private MockMvc mockMvc;
+
+    @Test
+    public void giveIdFindSubjectTest() throws Exception
+    {
+        mockMvc.perform(MockMvcRequestBuilders.get("/v1/subjects/{id}", 1))
+                        .andExpect(MockMvcResultMatchers.status().isOk())
+                        .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(1)))
+                        .andExpect(MockMvcResultMatchers.jsonPath("$.name", Matchers.is("Maths")));
+    }
+
+    @Test
+    public void givenSubjectDTOcreateSubjectTest() throws Exception
+    {
+         mockMvc.perform(MockMvcRequestBuilders.post("/v1/subjects")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(ApplicationUtils.asJsonString(dto)))
+                    .andExpect(MockMvcResultMatchers.status().isCreated())
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(1)))
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.name", Matchers.is("Maths")));
+    }
+}
+```
 
 ## Services
 
