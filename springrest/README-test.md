@@ -140,11 +140,11 @@ public class SubjectServerControllerTest {
 ## Services
 
 Use simple Junit with Mockito to write test cases for Service. Unless any Spring Test feautre is required.
-
+```
 Create Mock
 InjectMock using Mockito
 Capture and verify Arguments using ArgumentCaptor
-
+```
 
 ```java
 public class SubjectServiceImplTest {
@@ -187,7 +187,37 @@ public class SubjectServiceImplTest {
 
 ## Repositories
 
-## Integration
+Use @DataJpaTest to test repository
+```java
+@RunWith(SpringRunner.class)
+@DataJpaTest
+public class SubjectRepositoryTest {
+
+    @Autowired
+    private TestEntityManager entityManager;
+
+    @Autowired
+    private SubjectRepository subjectRepository;
+
+    @Test
+    public void saveSubjectTest()
+    {
+        // given
+        Long id = 1L;
+        Subject subject = new Subject();
+        subject.setId(id);
+        subject.setName("Maths");
+
+        // when
+        Subject result = subjectRepository.save(subject);
+
+        // then
+        Assert.assertNotNull(result);
+        Assert.assertEquals(result.getId(), subject.getId());
+        Assert.assertEquals(result.getName(), subject.getName());
+    }
+}
+```
 
 ## Other Classes
 Implement tests for the following types of classes using basic Junit. Unless they need any Mock or Spring Boot environment.
