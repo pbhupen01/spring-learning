@@ -23,7 +23,7 @@ Can include spring context, database and message brokers.
 
 End to End testing of overall functionality of the system.
 
-# Testing Web Layer
+# Test Code
 One approach is to start server and test.
 
 Second approach is to just directly test then lower layer without starting server.
@@ -31,12 +31,11 @@ Second approach is to just directly test then lower layer without starting serve
 Third approach is to test specific controller.
 
 
-## Controllers
+## Controllers and Integration Testing
 Controllers test can be written using Mockito. But that doesn't test actual REST request/response. So following approaches are recommended for Controllers tests.
 
 ### Using @SpringBootTest
-It starts server while running test.
-
+It starts server while running test. Preferred for Integration testing. No Mocks used.
 ```java
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -45,16 +44,55 @@ public class SubjectServerControllerTest {
     @LocalServerPort
     private int port;
 
-    @MockBean
-    SubjectService subjectService;
+    //@MockBean
+    //SubjectService subjectService;
 
     @Autowired
     private TestRestTemplate testRestTemplate;
 
     @Test
-    public void test()
+    public void giveIdFindSubjectTest()
     {
     ResponseEntity<SubjectDTO> responseEntity = this.testRestTemplate.getForEntity("http://localhost:" + port + "/v1/subjects/1", SubjectDTO.class);
+    }
+}
+```
+
+### Using @AutoConfigureMockMvc
+Another useful approach is to not start the server at all, but test only the layer below that, where Spring handles the incoming HTTP request and hands it off to your controller. That way, almost the full stack is used, and your code will be called exactly the same way as if it was processing a real HTTP request, but without the cost of starting the server.
+
+In this test, the full Spring application context is started, but without the server.
+
+```java
+@RunWith(SpringRunner.class)
+@AutoConfigureMockMvc
+@SpringBootTest
+public class SubjectServerControllerTest {
+
+    //@MockBean
+    //SubjectService subjectService;
+
+    @Autowired
+        private MockMvc mockMvc;
+
+    @Test
+    public void giveIdFindSubjectTest() throws Exception
+    {
+        mockMvc.perform(MockMvcRequestBuilders.get("/v1/subjects/{id}", 1))
+                        .andExpect(MockMvcResultMatchers.status().isOk())
+                        .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(1)))
+                        .andExpect(MockMvcResultMatchers.jsonPath("$.name", Matchers.is("Maths")));
+    }
+
+    @Test
+    public void givenSubjectDTOcreateSubjectTest() throws Exception
+    {
+         mockMvc.perform(MockMvcRequestBuilders.post("/v1/subjects")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(ApplicationUtils.asJsonString(dto)))
+                    .andExpect(MockMvcResultMatchers.status().isCreated())
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(1)))
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.name", Matchers.is("Maths")));
     }
 }
 ```
