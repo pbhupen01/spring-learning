@@ -1,6 +1,6 @@
 package practice.spring.springrest.controllers;
 
-public class SubjectControllerTest {
+public class StudentControllerTest {
 
 
 }

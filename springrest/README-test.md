@@ -1,10 +1,9 @@
 # Test
-There are three options for testing:
+There are three options for writing dev tests. Depending upon the test type we have to pickup any of the above for writing test cases.
+:
 1. Use basic Junit
 2. Use Mockito
 3. Use Spring Boot test for testing
-
-Depending upon the test type we have to pickup any of the above for writing test cases.
 
 **Text Fixture**
 
@@ -24,27 +23,30 @@ Can include spring context, database and message brokers.
 
 End to End testing of overall functionality of the system.
 
-## Spring Boot Test
+# Testing Web Layer
+One approach is to start server and test.
+
+Second approach is to just directly test then lower layer without starting server.
+
+Third approach is to test specific controller.
 
 
+## Controllers
 
-## Code under test
 
-#### Controllers
+## Services
 
-#### Services
+## Repositories
 
-#### Repositories
+## Integration
 
-#### Integration
-
-#### Other Classes
+## Other Classes
 Implement tests for the following types of classes using basic Junit. Unless they need any Mock or Spring Boot environment.
 * Converter
 * Domain
 * Utils
 
-## Junit Annotations
+# Junit Annotations
 
 | Annotation | Description |
 | --- | --- |
@@ -57,7 +59,7 @@ Implement tests for the following types of classes using basic Junit. Unless the
 | @Test(expected = Exception.class) | Fails if exception is not thrown during test |
 | @Test(timeout = 100) | Fails if test is not finished within given time |
 
-## Mockito Annotations
+# Mockito Annotations
 
 Please note that to enable Mockito mocks following method has to be called.
 ```java
@@ -69,7 +71,7 @@ MockitoAnnotations.initMocks(this)
 | @Mock | Declares bean Mockito Mock |
 | @Spy | Declares bean Mockito Spy |
 
-## Spring Annotations
+# Spring Annotations
 
 | Annotation | Description |
 | --- | --- |
@@ -83,6 +85,6 @@ MockitoAnnotations.initMocks(this)
 | @ActiveProfiles | Set which Spring Profiles are active for the test |
 | @ContextConfiguration | Used to direct Spring how to configure the context for the test |
 | @RestClientTest | Create a mock server for testing clients |
-| @DirtiesContext | Resets the Spring Context after the test (expensive to do) |
+| @DirtiesContext | Resets the Spring Context after the test (expensive to do). By default  application context is cached in between tests, so if you have multiple methods in a test case, or multiple test cases with the same configuration, they only incur the cost of starting the application once. |
 | @MockBean | Injects Mockito Mock. Add mock to Spring ApplicationContext. If any existing single bean of the same type defined in the context will be replaced by the mock, if no existing bean is defined a new one will be added.|
 | @SpyBean | Injects Mockito Spy. Add spy to Spring ApplicationContext. If any existing single bean of the same type defined in the context will be replaced by the mock, if no existing bean is defined a new one will be added.|
