@@ -68,8 +68,9 @@ MockitoAnnotations.initMocks(this)
 
 | Annotation | Description |
 | --- | --- |
-| @Mock | Declares bean Mockito Mock |
-| @Spy | Declares bean Mockito Spy |
+| @Mock | Declares bean Mockito Mock. This is injected in objects for which @InjectMocks is declared |
+| @Spy | Declares bean Mockito Spy. This is also injected in objects for which @InjectMocks is declared |
+| @InjectMocks | Autowire object on which this annotation is declared and inject mocks in it. Mock bean has to be separately declared |
 
 # Spring Annotations
 

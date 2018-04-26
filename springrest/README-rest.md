@@ -2,9 +2,20 @@
 # REST
 
 ## Steps
-1. Create ControllerTest with tests for all Endpoints. Use Mock for Service bean.
-2. Implement all the Endpoints methods for all Controllers.
-3. 
+
+#### Controller Implementation
+1. Create Controller with empty implementation of methods.
+2. Create ControllerTest with tests for all Endpoints
+3. Use mock bean for service. Implement mocks for methods which are required in tests.
+3. Add verify for call on service methods in test classes
+4. Implement Controller method calling service method
+5. Add test cases for validating return of controller methods
+6. Add converters with empty implementation
+7. Add test cases for converters
+8. Implement converter methods and make sure converters tests pass
+9. Implement all controller methods and ensure their test cases pass
+
+#### Service Implementation
 
 
 # Annotations

@@ -1,4 +1,20 @@
 package practice.spring.springrest.converter;
 
-public class SubjectToSubjectDTO {
+import org.springframework.core.convert.converter.Converter;
+import practice.spring.springrest.domain.Subject;
+import practice.spring.springrest.dto.SubjectDTO;
+
+public class SubjectToSubjectDTO implements Converter<Subject, SubjectDTO> {
+    @Override
+    public SubjectDTO convert(Subject source) {
+
+        if (source == null) {
+            return null;
+        }
+
+        SubjectDTO dest = new SubjectDTO();
+        dest.setId(source.getId());
+        dest.setName(source.getName());
+        return dest;
+    }
 }
