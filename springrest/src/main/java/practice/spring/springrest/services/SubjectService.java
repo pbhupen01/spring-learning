@@ -10,9 +10,9 @@ public interface SubjectService {
 
     public void deleteById(Long id);
 
-    public Subject createSubject(Subject student);
+    public Subject createSubject(Subject subject);
 
-    public Subject updateSubject(Subject student);
+    public Subject updateSubject(Subject subject);
 
     public List<Subject> getAllSubjects();
 }
