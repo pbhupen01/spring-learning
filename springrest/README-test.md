@@ -32,6 +32,32 @@ Third approach is to test specific controller.
 
 
 ## Controllers
+Controllers test can be written using Mockito. But that doesn't test actual REST request/response. So following approaches are recommended for Controllers tests.
+
+### Using @SpringBootTest
+It starts server while running test.
+
+```java
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+public class SubjectServerControllerTest {
+
+    @LocalServerPort
+    private int port;
+
+    @MockBean
+    SubjectService subjectService;
+
+    @Autowired
+    private TestRestTemplate testRestTemplate;
+
+    @Test
+    public void test()
+    {
+    ResponseEntity<SubjectDTO> responseEntity = this.testRestTemplate.getForEntity("http://localhost:" + port + "/v1/subjects/1", SubjectDTO.class);
+    }
+}
+```
 
 
 ## Services
